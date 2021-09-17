@@ -3,6 +3,8 @@
     <div class="row">
       <div class="col-sm">
         <h1>{{infoTitle}}</h1>
+        <!-- 追記 -->
+        <h3>{{timeStamp}}</h3>
       </div>
     </div>
     <div class="row">
@@ -20,6 +22,10 @@
 </template>
  
 <script>
+ 
+// 追記
+import axios from 'axios'
+ 
 export default {
   name: 'NodeRED',
   props: {
@@ -27,11 +33,21 @@ export default {
   },
   data () {
     return {
-      infoTitle: "Node-RED INDEX"
+      infoTitle: "Node-RED INDEX",
+      timeStamp: 0
     }
   },
   methods: {
- 
+    // 追記
+    getTimestamp:async function(){
+      const response = await axios.get('http://localhost:18801/api1');
+      console.log(response);
+      this.timeStamp = response.data.timestamp;
+    }
+  },
+  mounted () {
+    // 追記
+    this.getTimestamp();
   }
 }
 </script>
