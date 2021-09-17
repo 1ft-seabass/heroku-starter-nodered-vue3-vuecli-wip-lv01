@@ -1,0 +1,1 @@
+web: npm run node-red-no-editor
