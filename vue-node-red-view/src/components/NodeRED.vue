@@ -40,7 +40,15 @@ export default {
   methods: {
     // 追記
     getTimestamp:async function(){
-      const response = await axios.get('http://localhost:18801/api1');
+      // 開発サーバーと本番サーバーでの分岐処理 ここから
+      let urlTimeStampAPI = '/api1';
+      let localEndPoint = '//localhost:18801';
+      if( window.location.host == 'localhost:8080'){
+        // 開発サーバー(npm run serve)
+        urlTimeStampAPI = localEndPoint + urlTimeStampAPI;
+      } // ここまで
+      console.log("urlTimeStampAPI ",urlTimeStampAPI);
+      const response = await axios.get(urlTimeStampAPI);
       console.log(response);
       this.timeStamp = response.data.timestamp;
     }
